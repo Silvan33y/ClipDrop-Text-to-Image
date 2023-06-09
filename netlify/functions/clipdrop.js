@@ -1,7 +1,7 @@
 const axios = require("axios");
 const FormData = require("form-data");
 
-exports.handler = async function(event, context) {
+exports.handler = async function (event, context) {
   const { prompt } = JSON.parse(event.body);
 
   const form = new FormData();
@@ -20,6 +20,8 @@ exports.handler = async function(event, context) {
       statusCode: 200,
       headers: {
         "Content-Type": "image/png",
+        "Access-Control-Allow-Origin": "https://silvansoeters.webflow.io",
+        "Access-Control-Allow-Headers": "Content-Type",
       },
       body: Buffer.from(response.data).toString("base64"),
       isBase64Encoded: true,
@@ -28,6 +30,10 @@ exports.handler = async function(event, context) {
     console.error("ClipDrop API call failed:", error.response.data);
     return {
       statusCode: error.response.status,
+      headers: {
+        "Access-Control-Allow-Origin": "https://silvansoeters.webflow.io",
+        "Access-Control-Allow-Headers": "Content-Type",
+      },
       body: JSON.stringify({ error: "ClipDrop API call failed" }),
     };
   }
