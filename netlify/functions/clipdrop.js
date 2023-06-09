@@ -31,6 +31,7 @@ exports.handler = async function (event, context) {
     return {
       statusCode: error.response.status,
       headers: {
+        "Content-Type": "application/json",
         "Access-Control-Allow-Origin": "https://silvansoeters.webflow.io",
         "Access-Control-Allow-Headers": "Content-Type",
       },
