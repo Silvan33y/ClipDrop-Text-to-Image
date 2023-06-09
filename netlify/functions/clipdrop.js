@@ -2,6 +2,19 @@ const axios = require("axios");
 const FormData = require("form-data");
 
 exports.handler = async function (event, context) {
+  if (event.httpMethod === "OPTIONS") {
+    return {
+      statusCode: 200,
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "https://silvansoeters.webflow.io",
+        "Access-Control-Allow-Methods": "POST",
+        "Access-Control-Allow-Headers": "Content-Type",
+      },
+      body: JSON.stringify({ message: "CORS preflight response." }),
+    };
+  }
+  
   const { prompt } = JSON.parse(event.body);
 
   const form = new FormData();
